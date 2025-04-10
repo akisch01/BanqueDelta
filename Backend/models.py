@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Enum
+from datetime import datetime
+from sqlalchemy import Column, DateTime, Integer, String, Float, Date, ForeignKey, Enum
 from database import Base
 
 class User(Base):
@@ -27,7 +28,7 @@ class Compte(Base):
 class Transaction(Base):
     __tablename__ = "transactions"
     id = Column(Integer, primary_key=True, index=True)
-    compte_id = Column(Integer, ForeignKey("comptes.id"))
+    compte_id = Column(Integer, ForeignKey("comptes.id", ondelete="CASCADE"))
     type_transaction = Column(Enum("dépôt", "retrait", name="type_transaction"))
     montant = Column(Float)
-    date_transaction = Column(Date)
+    date_transaction = Column(DateTime, default=datetime.now)

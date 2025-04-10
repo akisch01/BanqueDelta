@@ -17,10 +17,15 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "http://192.168.16.102:3000",
+    "http://192.168.16.102:8000",  # Ajoutez aussi le backend si nécessaire
+]
 # Configuration du  CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -181,3 +186,7 @@ def calculer_interets(compte_id: int, db: Session = Depends(get_db)):
         return {"message": "Intérêts calculés", "nouveau_solde": compte.solde}
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

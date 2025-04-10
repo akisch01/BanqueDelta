@@ -13,8 +13,10 @@ import CompteForm from './components/Comptes/CompteForm';
 import CompteOperations from './components/Comptes/CompteOperations';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import Home from './components/Home';
+import Settings from './components/Settings/Settings';
+import Help from './components/Help/Help';
+import Profile from './components/Profile/Profile';
 import { CssBaseline, ThemeProvider, Box, useTheme } from '@mui/material';
-import theme from './styles/theme';
 
 const drawerWidth = 240;
 
@@ -97,6 +99,25 @@ const App = () => {
               <Route path="/comptes/:id" element={
                 <PrivateRoute>
                   <CompteOperations />
+                </PrivateRoute>
+              } />
+
+              {/* Nouvelles routes ajoutées exactement dans le même style */}
+              <Route path="/settings" element={
+                <PrivateRoute>
+                  <Settings />
+                </PrivateRoute>
+              } />
+
+              <Route path="/help" element={
+                <PrivateRoute>
+                  <Help />
+                </PrivateRoute>
+              } />
+
+              <Route path="/profile" element={
+                <PrivateRoute>
+                  <Profile />
                 </PrivateRoute>
               } />
             </Routes>

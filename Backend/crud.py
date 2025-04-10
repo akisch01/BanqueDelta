@@ -76,11 +76,16 @@ def update_compte(db: Session, compte_id: int, compte: schemas.CompteCreate):
     return db_compte
 
 def delete_compte(db: Session, compte_id: int):
+    # D'abord supprimer toutes les transactions associées
+    db.query(models.Transaction).filter(models.Transaction.compte_id == compte_id).delete()
+    
+    # Ensuite supprimer le compte
     db_compte = db.query(models.Compte).filter(models.Compte.id == compte_id).first()
     if db_compte:
         db.delete(db_compte)
         db.commit()
-    return db_compte
+        return db_compte
+    return None
 
 # Transactions
 def create_transaction(db: Session, transaction: schemas.TransactionCreate):

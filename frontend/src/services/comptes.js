@@ -37,14 +37,21 @@ export const getTransactions = async (compteId) => {
   return response.data;
 };
 
-export const deposerArgent = async (compteId, montant) => {
-  return api.post(`/comptes/${compteId}/depot`, {
-    montant: parseFloat(montant)
-  });
+// Nouvelle version de deposerArgent
+export const deposerArgent = async (id, montant) => {
+  const response = await api.post(`/comptes/${id}/depot`, { montant });
+  
+  // Adaptation pour votre backend FastAPI
+  return {
+    nouveau_solde: response.data.solde  // Extrait le solde de la réponse
+  };
 };
 
-export const retirerArgent = async (compteId, montant) => {
-  return api.post(`/comptes/${compteId}/retrait`, {
-    montant: parseFloat(montant)
-  });
+// Nouvelle version de retirerArgent
+export const retirerArgent = async (id, montant) => {
+  const response = await api.post(`/comptes/${id}/retrait`, { montant });
+  
+  return {
+    nouveau_solde: response.data.solde  // Extrait le solde de la réponse
+  };
 };
