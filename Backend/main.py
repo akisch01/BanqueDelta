@@ -18,9 +18,7 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
-    "http://192.168.16.102:3000",
-    "http://192.168.16.102:8000",  # Ajoutez aussi le backend si nécessaire
+    "http://localhost:3000", 
 ]
 # Configuration du  CORS
 app.add_middleware(
@@ -159,7 +157,7 @@ def delete_compte(compte_id: int, db: Session = Depends(get_db)):
 @app.post("/comptes/{compte_id}/depot", response_model=schemas.Compte)
 def deposer_argent(
     compte_id: int,
-    depot: schemas.DepotCreate = Body(...),  # Spécifiez le schéma
+    depot: schemas.DepotCreate = Body(...), 
     db: Session = Depends(get_db)
 ):
     return crud.deposer_argent(db, compte_id=compte_id, montant=depot.montant)

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: process.env.NODE_ENV === 'development' 
-    ? 'http://192.168.16.102:8000'  // Développement - accessible partout
+    ? 'http://localhost:8000'  // Développement - accessible partout
     : 'http://localhost:8000',       // Production - si tout est sur même serveur
   withCredentials: true,
   headers: {
